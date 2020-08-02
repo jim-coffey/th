@@ -8,7 +8,7 @@
 // ====================================================
 
 export interface DeleteListing_deleteListing {
-  __typename: "Listing";
+  __typename: 'Listing';
   id: string;
 }
 

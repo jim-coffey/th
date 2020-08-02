@@ -8,7 +8,7 @@
 // ====================================================
 
 export interface Listings_listings {
-  __typename: "Listing";
+  __typename: 'Listing';
   id: string;
   title: string;
   image: string;
