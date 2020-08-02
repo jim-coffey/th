@@ -1,6 +1,7 @@
 import React from "react";
-import { server } from "../../lib/api/server";
+import { useQuery, useMutation } from "../../lib/api";
 import {
+  Listing,
   ListingsData,
   DeleteListingData,
   DeleteListingVariables,
@@ -35,24 +36,35 @@ const DELETE_LISTING = `
 `;
 
 export const Listings = ({ title }: Props) => {
-  const fetchListings = async () => {
-    const { data } = await server.fetch<ListingsData>({ query: LISTINGS });
-    console.log(data);
+  const { data, loading, error, refetch } = useQuery<ListingsData>(LISTINGS);
+
+  const [
+    deleteListing,
+    { loading: deleteListingLoading, error: deleteListingError },
+  ] = useMutation<DeleteListingData, DeleteListingVariables>(DELETE_LISTING);
+
+  const handleDeleteListing = async (id: string) => {
+    await deleteListing({ id });
+    refetch();
   };
 
-  const deleteListing = async () => {
-    const { data } = await server.fetch<
-      DeleteListingData,
-      DeleteListingVariables
-    >({ query: DELETE_LISTING, variables: { id: "5f25a52611f352cafa64fdef" } });
-    console.log(data);
-  };
+  const listingsList =
+    data &&
+    data.listings.map((listing: Listing) => (
+      <li key={listing.id}>
+        {listing.title}
+        <button onClick={() => handleDeleteListing(listing.id)}>Delete</button>
+      </li>
+    ));
 
   return (
     <div>
       <h2>{title}</h2>
-      <button onClick={fetchListings}>Query Listings!</button>
-      <button onClick={deleteListing}>Delete a Listing!!!</button>
+      {(loading || deleteListingLoading) && <h3>Busy...</h3>}
+      {(error || deleteListingError) && (
+        <h3>Uh oh! Something went wrong - please try again later :(</h3>
+      )}
+      <ul>{listingsList}</ul>
     </div>
   );
 };
