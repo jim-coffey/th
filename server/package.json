@@ -1,5 +1,5 @@
 {
-  "name": "tinyhouse",
+  "name": "tinyhouse-server",
   "version": "0.1.0",
   "description": "",
   "main": "server/kindex.js",
