@@ -5,7 +5,6 @@ import { MenuItems } from './components';
 import { Viewer } from '../../lib/types';
 
 import logo from './assets/tinyhouse-logo.png';
-import { VariablesInAllowedPositionRule } from 'graphql';
 
 const { Header } = Layout;
 
