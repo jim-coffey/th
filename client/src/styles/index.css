@@ -549,6 +549,8 @@
 }
 .user-bookings {
   padding-top: 40px;
+  max-width: 80%;
+  margin: auto;
 }
 .user-bookings__title.ant-typography {
   color: #1d226c;

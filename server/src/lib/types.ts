@@ -31,6 +31,7 @@ export interface Booking {
   tenant: string;
   checkIn: string;
   checkOut: string;
+  authorized?: boolean;
 }
 
 export interface Listing {
@@ -48,6 +49,7 @@ export interface Listing {
   bookingsIndex: BookingsIndex;
   price: number;
   numOfGuests: number;
+  authorized?: boolean;
 }
 
 export interface User {
