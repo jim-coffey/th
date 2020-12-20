@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useLocation } from 'react-router-dom';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { Card, Layout, Spin, Typography } from 'antd';
 import { ErrorBanner } from '../../lib/components';
@@ -39,11 +39,15 @@ export const Login = (props: Props) => {
         sessionStorage.setItem('token', data.logIn.token);
       }
     },
+    onError: () => {}, // necessary to test error state of component
   });
   const logInRef = useRef(logIn);
+  const location = useLocation();
 
   useEffect(() => {
-    const code = new URL(window.location.href).searchParams.get('code');
+    // const code = new URL(window.location.href).searchParams.get('code');
+    const searchParams = new URLSearchParams(location.search);
+    const code = searchParams.get('code');
 
     if (code) {
       logInRef.current({
@@ -52,7 +56,7 @@ export const Login = (props: Props) => {
         },
       });
     }
-  }, []);
+  }, [location.search]);
 
   const handleAuth = async () => {
     try {
@@ -60,7 +64,7 @@ export const Login = (props: Props) => {
         query: AUTH_URL,
       });
 
-      window.location.href = data.authUrl;
+      window.location.assign(data.authUrl);
     } catch (err) {
       displayErrorMessage(
         'Sorry! We weren`t able to log you in. Please try again later!'

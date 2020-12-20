@@ -36,6 +36,7 @@ export const MenuItems = ({ viewer, setViewer }: Props) => {
 
   const handleLogOut = () => {
     logOut();
+    window.location.assign('/');
   };
 
   const subMenuLogin =
