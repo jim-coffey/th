@@ -1,7 +1,7 @@
 import { IResolvers } from 'apollo-server-express';
 import { Request } from 'express';
 import { ObjectId } from 'mongodb';
-import { Google } from '../../../lib/api';
+import { GoogleApi } from '../../../lib/api';
 import { authorize } from '../../../lib/utils';
 import { Database, Listing, User } from '../../../lib/types';
 import {
@@ -52,7 +52,7 @@ export const listingResolvers: IResolvers = {
         const locationQuery: ListingsQuery = {};
 
         if (location) {
-          const { country, admin, city } = await Google.geocode(location);
+          const { country, admin, city } = await GoogleApi.geocode(location);
 
           if (city) locationQuery.city = city;
           if (admin) locationQuery.admin = admin;

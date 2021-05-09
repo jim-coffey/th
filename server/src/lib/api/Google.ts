@@ -47,7 +47,7 @@ const parseAddress = (
   return { country, admin, city };
 };
 
-export const Google = {
+export const GoogleApi = {
   authUrl: auth.generateAuthUrl({
     access_type: 'online',
     scope: [
