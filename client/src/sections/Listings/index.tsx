@@ -76,13 +76,15 @@ export const Listings = ({ match }: RouteComponentProps<MatchParams>) => {
     listings && listings.result.length ? (
       <div>
         <Affix offsetTop={64}>
-          <ListingsPagination
-            total={listings.total}
-            page={page}
-            limit={PAGE_LIMIT}
-            setPage={setPage}
-          />
-          <ListingsFilters filter={filter} setFilter={setFilter} />
+          <div>
+            <ListingsPagination
+              total={listings.total}
+              page={page}
+              limit={PAGE_LIMIT}
+              setPage={setPage}
+            />
+            <ListingsFilters filter={filter} setFilter={setFilter} />
+          </div>
         </Affix>
         <List
           grid={{

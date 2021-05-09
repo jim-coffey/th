@@ -180,7 +180,7 @@ export const viewerResolvers: IResolvers = {
           throw new Error('viewer cannot be found');
         }
 
-        const stripe_user_id = await StripeApi.connect(code);
+        const { stripe_user_id } = await StripeApi.connect(code);
         if (!stripe_user_id) {
           throw new Error('stripe grant error');
         }

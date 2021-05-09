@@ -7,11 +7,11 @@ const stripe = new Stripe(`${process.env.S_SECRET_KEY}`, {
 
 export const StripeApi = {
   connect: async (code: string) => {
-    const { stripe_user_id } = await stripe.oauth.token({
+    const response = await stripe.oauth.token({
       grant_type: 'authorization_code',
       code,
     });
 
-    return stripe_user_id;
+    return response;
   },
 };
