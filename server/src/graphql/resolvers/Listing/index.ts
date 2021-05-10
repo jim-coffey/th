@@ -1,7 +1,7 @@
 import { IResolvers } from 'apollo-server-express';
 import { Request } from 'express';
 import { ObjectId } from 'mongodb';
-import { GoogleApi } from '../../../lib/api';
+import { GoogleApi, CloudinaryApi } from '../../../lib/api';
 import { authorize } from '../../../lib/utils';
 import { Database, Listing, ListingType, User } from '../../../lib/types';
 import {
@@ -132,9 +132,12 @@ export const listingResolvers: IResolvers = {
         throw new Error('invalid address input');
       }
 
+      const imageUrl = await CloudinaryApi.upload(input.image);
+
       const insertResult = await db.listings.insertOne({
         _id: new ObjectId(),
         ...input,
+        image: imageUrl,
         bookings: [],
         bookingsIndex: {},
         country,
