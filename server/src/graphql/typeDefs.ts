@@ -74,6 +74,23 @@ export const typeDefs = gql`
     code: String!
   }
 
+  input HostListingInput {
+    title: String!
+    description: String!
+    image: String!
+    type: ListingType!
+    address: String!
+    price: Int!
+    numOfGuests: Int!
+  }
+
+  input CreateBookingInput {
+    id: ID!
+    source: String!
+    checkIn: String!
+    checkOut: String!
+  }
+
   type Query {
     authUrl: String!
     user(id: ID!): User!
@@ -86,21 +103,12 @@ export const typeDefs = gql`
     ): Listings!
   }
 
-  input HostListingInput {
-    title: String!
-    description: String!
-    image: String!
-    type: ListingType!
-    address: String!
-    price: Int!
-    numOfGuests: Int!
-  }
-
   type Mutation {
     logIn(input: LogInInput): Viewer!
     logOut: Viewer!
     connectStripe(input: ConnectStripeInput!): Viewer!
     disconnectStripe: Viewer!
     hostListing(input: HostListingInput!): Listing!
+    createBooking(input: CreateBookingInput!): Booking!
   }
 `;
