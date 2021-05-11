@@ -1,5 +1,7 @@
 # TinyHouse Application
 
+![th](https://user-images.githubusercontent.com/8742105/117832664-97a0a880-b26d-11eb-8897-f49a1c795ddc.png)
+
 An Airbnb-Lite website - publish your properties for rental - others can browse and book.
 
 (https://newline.co training application)
