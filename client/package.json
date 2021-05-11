@@ -23,6 +23,7 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-stripe-elements": "^6.1.2",
     "typescript": "^3.9.0"
   },
   "scripts": {
@@ -48,5 +49,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:9000"
+  "proxy": "http://localhost:9000",
+  "devDependencies": {
+    "@types/react-stripe-elements": "^6.0.4"
+  }
 }

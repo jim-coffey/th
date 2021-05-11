@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Typography } from 'antd';
 import { UserOutlined } from '@ant-design/icons/lib';
-import { formatListingPrice, iconColor } from '../../utils';
+import { formatPrice, iconColor } from '../../utils';
 
 interface Props {
   listing: {
@@ -35,7 +35,7 @@ export const ListingCard = ({ listing }: Props) => {
         <div className="listing-card__details">
           <div className="listing-card__descritpion">
             <Title level={4} className="listing-card__price">
-              {formatListingPrice(price)}
+              {formatPrice(price)}
               <span>/day</span>
             </Title>
             <Text strong ellipsis className="listing-card__title">

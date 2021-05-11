@@ -5,7 +5,7 @@ import { User as UserData } from '../../../../lib/graphql/queries/User/__generat
 import {
   displaySuccessNotification,
   displayErrorMessage,
-  formatListingPrice,
+  formatPrice,
 } from '../../../../lib/utils';
 import { DISCONNECT_STRIPE } from '../../../../lib/graphql/mutations/';
 import { DisconnectStripe as DisconnectStripeData } from '../../../../lib/graphql/mutations/DisconnectStripe/__generated__/DisconnectStripe';
@@ -65,9 +65,7 @@ export const UserProfile = ({
       </Paragraph>
       <Paragraph>
         Income Earned:{' '}
-        <Text strong>
-          {user.income ? formatListingPrice(user.income) : `$0`}
-        </Text>
+        <Text strong>{user.income ? formatPrice(user.income) : `$0`}</Text>
       </Paragraph>
       <Button
         type="primary"

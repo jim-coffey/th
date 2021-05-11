@@ -13,20 +13,27 @@ import {
   ListingDetails,
   ListingBookings,
   ListingCreateBooking,
+  WrappedListingCreateBookingModal as ListingCreateBookingModal,
 } from './components';
+import { Viewer } from '../../lib/types';
 
 interface MatchParams {
   id: string;
+}
+
+interface Props extends RouteComponentProps<MatchParams> {
+  viewer: Viewer;
 }
 
 const PAGE_LIMIT = 3;
 
 const { Content } = Layout;
 
-export const Listing = ({ match }: RouteComponentProps<MatchParams>) => {
+export const Listing = ({ match, viewer }: Props) => {
   const [bookingsPage, setBookingsPage] = useState(1);
   const [checkInDate, setCheckInDate] = useState<Moment | null>(null);
   const [checkOutDate, setCheckOutDate] = useState<Moment | null>(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const { loading, data, error } = useQuery<ListingData, ListingVariables>(
     LISTING,
@@ -59,6 +66,17 @@ export const Listing = ({ match }: RouteComponentProps<MatchParams>) => {
   const listing = data ? data.listing : null;
   const listingBookings = listing ? listing.bookings : null;
 
+  const listingCreateBookingModalElement =
+    listing && checkInDate && checkOutDate ? (
+      <ListingCreateBookingModal
+        price={listing.price}
+        checkInDate={checkInDate}
+        checkOutDate={checkOutDate}
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
+    ) : null;
+
   const listingDetailsElement = listing ? (
     <ListingDetails listing={listing} />
   ) : null;
@@ -74,11 +92,15 @@ export const Listing = ({ match }: RouteComponentProps<MatchParams>) => {
 
   const listingCreateBookingElement = listing ? (
     <ListingCreateBooking
+      viewer={viewer}
+      host={listing.host}
       price={listing.price}
+      bookingsIndex={listing.bookingsIndex}
       checkInDate={checkInDate}
       checkOutDate={checkOutDate}
       setCheckInDate={setCheckInDate}
       setCheckOutDate={setCheckOutDate}
+      setModalVisible={setModalVisible}
     />
   ) : null;
 
@@ -93,6 +115,7 @@ export const Listing = ({ match }: RouteComponentProps<MatchParams>) => {
           {listingCreateBookingElement}
         </Col>
       </Row>
+      {listingCreateBookingModalElement}
     </Content>
   );
 };
