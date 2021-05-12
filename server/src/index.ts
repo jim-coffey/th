@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-require('dotenv').config(); // required in dev - not on heroku
+// require('dotenv').config(); // required in dev - not on heroku
 
 import express, { Application } from 'express';
 import cookieParser from 'cookie-parser';
