@@ -1,10 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-require('dotenv').config();
+require('dotenv').config(); // required in dev - not on heroku
 
 import express, { Application } from 'express';
 import cookieParser from 'cookie-parser';
 import { ApolloServer } from 'apollo-server-express';
 import bodyParser from 'body-parser';
+import compression from 'compression';
 import { connectDatabase } from './database';
 import { typeDefs, resolvers } from './graphql';
 import { mockUploadResponse } from './mock-upload-response';
@@ -16,6 +17,9 @@ const mount = async (app: Application) => {
 
   app.use(bodyParser.json({ limit: '2mb' }));
   app.use(cookieParser(process.env.SECRET));
+  app.use(compression());
+  app.use(express.static(`${__dirname}/client`));
+  app.get('/*', (_req, res) => res.sendFile(`${__dirname}/client/index.html`));
 
   const server = new ApolloServer({
     typeDefs,
